@@ -24,8 +24,6 @@ requirements:
       then: make
     - if: win
       then: m2-sed
-  host:
-    - openssl
 
 tests:
   - script:
