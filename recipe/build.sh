@@ -14,8 +14,22 @@ git -C "${SRC_DIR}" config user.name "conda build"
 git -C "${SRC_DIR}" add -A
 git -C "${SRC_DIR}" commit -m "conda build placeholder"
 
-# Since the `picoruby()` method in `picoruby/build.rb` attempts to read `src/version.c.in`,
-# generate `version.c` in advance (verify that `git log` works properly)
+# Pre-generate src/version.c from src/version.c.in
+# picoruby/build.rb reads this file during Rakefile load (config phase).
+TIMESTAMP=$(git -C "${SRC_DIR}" log -1 --format="%ct")
+COMMIT_HASH=$(git -C "${SRC_DIR}" log -1 --format="%h")
+BRANCH=$(git -C "${SRC_DIR}" branch --show-current)
+BUILD_DATE=$(date -u +"%Y-%m-%d")
+COMMIT_TIMESTAMP=$(date -u -d "@${TIMESTAMP}" +"%Y-%m-%dT%H:%M:%SZ" 2>/dev/null || \
+                   date -u -r "${TIMESTAMP}" +"%Y-%m-%dT%H:%M:%SZ")
+
+sed \
+  -e "s|@PICORUBY_COMMIT_TIMESTAMP@|${COMMIT_TIMESTAMP}|g" \
+  -e "s|@PICORUBY_COMMIT_BRANCH@|${BRANCH}|g" \
+  -e "s|@PICORUBY_COMMIT_HASH@|${COMMIT_HASH}|g" \
+  -e "s|@PICORUBY_BUILD_DATE@|${BUILD_DATE}|g" \
+  "${SRC_DIR}/src/version.c.in" > "${SRC_DIR}/src/version.c"
+
 echo "git log test:"
 git -C "${SRC_DIR}" log -1 --format="%ct %h"
 git -C "${SRC_DIR}" branch --show-current
