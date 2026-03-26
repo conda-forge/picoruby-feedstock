@@ -10,6 +10,8 @@ export MRUBY_CONFIG="${SRC_DIR}/build_config/default.rb"
 # Initialize a minimal git repo so those commands do not fail.
 mkdir -p "${SRC_DIR}/.git"
 git -C "${SRC_DIR}" init || true
+git -C "${SRC_DIR}" config user.email "conda@build.local"
+git -C "${SRC_DIR}" config user.name "conda build"
 git -C "${SRC_DIR}" commit --allow-empty -m "conda build placeholder" || true
 
 # When cross-compiling on Mac, skip tests even if errors occur.
