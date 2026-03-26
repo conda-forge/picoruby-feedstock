@@ -11,9 +11,14 @@ export MRUBY_CONFIG="${SRC_DIR}/build_config/default.rb"
 git -C "${SRC_DIR}" init
 git -C "${SRC_DIR}" config user.email "conda@build.local"
 git -C "${SRC_DIR}" config user.name "conda build"
-# Stage all files so the commit is non-empty and git log works correctly
 git -C "${SRC_DIR}" add -A
-git -C "${SRC_DIR}" commit --allow-empty -m "conda build placeholder"
+git -C "${SRC_DIR}" commit -m "conda build placeholder"
+
+# Since the `picoruby()` method in `picoruby/build.rb` attempts to read `src/version.c.in`,
+# generate `version.c` in advance (verify that `git log` works properly)
+echo "git log test:"
+git -C "${SRC_DIR}" log -1 --format="%ct %h"
+git -C "${SRC_DIR}" branch --show-current
 
 # When cross-compiling on Mac, skip tests even if errors occur.
 if [[ $(uname) == "Darwin" && (${build_platform} != ${target_platform}) ]]; then
