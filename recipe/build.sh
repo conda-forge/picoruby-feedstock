@@ -8,13 +8,12 @@ export MRUBY_CONFIG="${SRC_DIR}/build_config/default.rb"
 # picoruby's build.rb runs `git log` and `git branch` during configuration,
 # but conda build environments unpack from a tarball and have no .git directory.
 # Initialize a minimal git repo so those commands do not fail.
-mkdir -p "${SRC_DIR}/.git"
 git -C "${SRC_DIR}" init
 git -C "${SRC_DIR}" config user.email "conda@build.local"
 git -C "${SRC_DIR}" config user.name "conda build"
 # Stage all files so the commit is non-empty and git log works correctly
 git -C "${SRC_DIR}" add -A
-git -C "${SRC_DIR}" commit -m "conda build placeholder"
+git -C "${SRC_DIR}" commit --allow-empty -m "conda build placeholder"
 
 # When cross-compiling on Mac, skip tests even if errors occur.
 if [[ $(uname) == "Darwin" && (${build_platform} != ${target_platform}) ]]; then
