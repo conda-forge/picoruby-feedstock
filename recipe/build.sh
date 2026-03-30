@@ -3,6 +3,7 @@
 set -exo pipefail
 
 export LD=${CC}
+export CC=clang
 export MRUBY_CONFIG="${SRC_DIR}/build_config/default.rb"
 
 # When cross-compiling on Mac, skip tests even if errors occur.
