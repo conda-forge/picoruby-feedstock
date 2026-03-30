@@ -1,0 +1,15 @@
+diff --git a/mrbgems/picoruby-metaprog/src/mrubyc/metaprog.c b/mrbgems/picoruby-metaprog/src/mrubyc/metaprog.c
+index f6391575..cb020bd7 100644
+--- a/mrbgems/picoruby-metaprog/src/mrubyc/metaprog.c
++++ b/mrbgems/picoruby-metaprog/src/mrubyc/metaprog.c
+@@ -3,6 +3,10 @@
+ #include <stdbool.h>
+ #include <unistd.h>
+ 
++#ifdef __APPLE__
++#include <mach-o/dyld.h>
++#endif
++
+ /*
+  * Restriction: Methods written in Ruby can not be called by send.
+  */
