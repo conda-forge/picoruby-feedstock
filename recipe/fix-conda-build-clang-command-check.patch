@@ -1,0 +1,13 @@
+diff --git a/lib/picoruby/build.rb b/lib/picoruby/build.rb
+index b85b895c..88c4017f 100644
+--- a/lib/picoruby/build.rb
++++ b/lib/picoruby/build.rb
+@@ -166,7 +166,7 @@ module MRuby
+         cc.flags << "-fdata-sections"
+         cc.flags << "-fomit-frame-pointer"
+         # cc.flags << "-flto" # Build fails with -flto
+-        unless cc.command == "clang" || cc.command == "emcc"
++        unless cc.command.end_with?("clang") || cc.command == "emcc"
+           cc.flags << "-s"
+           linker.flags << "-Wl,--gc-sections"
+         end
