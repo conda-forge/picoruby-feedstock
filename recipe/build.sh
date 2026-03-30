@@ -2,7 +2,6 @@
 
 set -exo pipefail
 
-export CC=clang
 export LD=${CC}
 export MRUBY_CONFIG="${SRC_DIR}/build_config/default.rb"
 
