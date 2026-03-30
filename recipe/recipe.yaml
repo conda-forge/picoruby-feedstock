@@ -1,6 +1,6 @@
 context:
   name: PicoRuby
-  version: "3.4.1"
+  version: "3.4.2"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   git: https://github.com/picoruby/picoruby.git
-  rev: d437873d68a6ce0f8ff6256702ac149b8e94a05a
+  rev: 9b94521d56e6082793db861801546fc5808b5211
   patches:
     - fix-conda-build-clang-command-check.patch
     - fix-metaprog-macos-dyld-include-guard.patch
