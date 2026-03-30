@@ -11,6 +11,7 @@ source:
   rev: d437873d68a6ce0f8ff6256702ac149b8e94a05a
   patches:
     - fix-conda-build-clang-command-check.patch
+    - fix-metaprog-macos-dyld-include-guard.patch
 
 build:
   number: 0
