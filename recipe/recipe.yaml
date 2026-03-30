@@ -9,6 +9,9 @@ package:
 source:
   git: https://github.com/picoruby/picoruby.git
   rev: 9b94521d56e6082793db861801546fc5808b5211
+  patches:
+    - fix-conda-build-clang-command-check.patch
+    - fix-metaprog-macos-dyld-include-guard.patch
 
 build:
   number: 0
