@@ -1,17 +1,20 @@
 context:
   name: PicoRuby
-  version: "3.0.2"
+  version: "3.4.1"
 
 package:
   name: ${{ name|lower }}
   version: ${{ version }}
 
 source:
-  - url: https://github.com/${{ name|lower }}/${{ name|lower }}/archive/refs/tags/${{ version }}.tar.gz
-    sha256: 33b951be8969570726bc34632fa5e0f332ee6e8ed782b5ec0f8fd5629a6be959
+  git: https://github.com/picoruby/picoruby.git
+  rev: d437873d68a6ce0f8ff6256702ac149b8e94a05a
+  patches:
+    - fix-conda-build-clang-command-check.patch
+    - fix-metaprog-macos-dyld-include-guard.patch
 
 build:
-  number: 2
+  number: 0
   skip: win
 
 requirements:
@@ -24,10 +27,12 @@ requirements:
       then: make
     - if: win
       then: m2-sed
+  host:
+    - openssl
 
 tests:
   - script:
-    - picoruby --verbose -e "puts 'Hello, PicoRuby!'"
+      - picoruby --verbose -e "puts 'Hello, PicoRuby!'"
 
 about:
   homepage: https://picoruby.org
