@@ -7,8 +7,8 @@ package:
   version: ${{ version }}
 
 source:
-  - url: https://github.com/${{ name|lower }}/${{ name|lower }}/archive/refs/tags/${{ version }}.tar.gz
-    sha256: 526739a855b11c3d296b9dbf9e2b65ff9c69facf0365ad26a1d6e6a291858966
+  git: https://github.com/picoruby/picoruby.git
+  rev: d437873d68a6ce0f8ff6256702ac149b8e94a05a
 
 build:
   number: 0
